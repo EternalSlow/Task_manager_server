@@ -29,7 +29,6 @@ mongoose.connect(process.env.MONGODB_URI)
   })
   .catch(err => console.error('❌ MongoDB error:', err));
 
-// --- Admin ---
 async function createDefaultAdmin() {
   try {
     const adminEmail = 'admin@example.com';
@@ -48,7 +47,6 @@ async function createDefaultAdmin() {
   }
 }
 
-// --- Seed ---
 async function seedDatabase() {
   try {
 
@@ -77,7 +75,6 @@ async function seedDatabase() {
   }
 }
 
-// --- Аутентификация ---
 app.post('/api/login', async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -124,7 +121,5 @@ app.get('/api/profile', authenticate, async (req, res) => {
   }
 });
 
-// --- Роуты ---
 app.use('/api/kanban-tasks', require('./routes/kanbanTasks'));
-// Оставляем старые /api/tasks для простых задач (если нужны)
 app.use('/api/tasks', require('./routes/tasks'));

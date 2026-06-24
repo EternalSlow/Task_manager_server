@@ -54,16 +54,12 @@ async function seedDatabase() {
     if (taskCount === 0) {
       console.log('🌱 Seeding Kanban tasks...');
       const tasks = [
-        // Not Started
         { title: 'Pillo Website and App', description: 'New Design', priority: 'low', progress: 0, total: 5, dueDate: 'March 30, 2025', status: 'not-started', avatars: ['bg-blue-500','bg-purple-500','bg-pink-500'], comments: 3, attachments: 7 },
         { title: 'Lambo Consultancy Website', description: 'New Homepage', priority: 'medium', progress: 0, total: 5, dueDate: 'March 30, 2025', status: 'not-started', avatars: ['bg-green-500','bg-orange-500','bg-red-500'], comments: 3, attachments: 7 },
-        // In Progress
         { title: 'Orbino Farmacy Website', description: 'New Homepage', priority: 'high', progress: 1, total: 5, dueDate: 'March 29, 2025', status: 'in-progress', avatars: ['bg-blue-500','bg-purple-500','bg-yellow-500'], comments: 3, attachments: 7 },
         { title: 'Tarbo App and Website', description: 'New Project', priority: 'low', progress: 2, total: 5, dueDate: 'March 28, 2025', status: 'in-progress', avatars: ['bg-green-500','bg-blue-500','bg-purple-500'], comments: 3, attachments: 7 },
-        // Under Review
         { title: 'Ebay Website Development', description: 'New E-commerce', priority: 'low', progress: 5, total: 5, dueDate: 'March 21, 2025', status: 'under-review', avatars: ['bg-teal-500','bg-cyan-500','bg-orange-500'], comments: 3, attachments: 7 },
         { title: 'Fillio Webapp Design', description: 'New webapp', priority: 'medium', progress: 3, total: 5, dueDate: 'March 20, 2025', status: 'under-review', avatars: ['bg-purple-500','bg-blue-500','bg-green-500'], comments: 3, attachments: 7 },
-        // Completed
         { title: 'Update Design System', description: 'New Design', priority: 'medium', progress: 5, total: 5, dueDate: 'March 16, 2025', status: 'completed', avatars: ['bg-pink-500','bg-blue-500','bg-orange-500'], comments: 3, attachments: 7 },
         { title: 'Ai Travel App Design', description: 'App Design', priority: 'high', progress: 5, total: 5, dueDate: 'March 15, 2025', status: 'completed', avatars: ['bg-green-500','bg-blue-500','bg-purple-500'], comments: 3, attachments: 7 },
       ];
@@ -123,3 +119,4 @@ app.get('/api/profile', authenticate, async (req, res) => {
 
 app.use('/api/kanban-tasks', require('./routes/kanbanTasks'));
 app.use('/api/tasks', require('./routes/tasks'));
+app.use('/api/users', require('./routes/users'));

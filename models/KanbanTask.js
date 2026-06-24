@@ -8,7 +8,13 @@ const kanbanTaskSchema = new mongoose.Schema({
   total: { type: Number, default: 5 },
   dueDate: { type: String, default: '' },
   status: { type: String, enum: ['not-started', 'in-progress', 'under-review', 'completed'], default: 'not-started' },
-  avatars: { type: [String], default: [] }, // массив CSS-классов для аватарок
+
+  // ✅ Новое: реальные пользователи
+  assignees: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User', default: [] }],
+
+  // (опционально оставить для обратной совместимости, но фронт лучше перевести на assignees)
+  avatars: { type: [String], default: [] },
+
   comments: { type: Number, default: 0 },
   attachments: { type: Number, default: 0 },
 }, { timestamps: true });

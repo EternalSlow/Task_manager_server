@@ -1,17 +1,21 @@
 const express = require('express');
 const router = express.Router();
 const KanbanTask = require('../models/KanbanTask');
+const mongoose = require('mongoose');
 
 router.get('/', async (req, res) => {
   try {
     const { assigneeId } = req.query;
+    const filter = {};
 
-    const filter = assigneeId ? { assignees: assigneeId } : {};
+    if (assigneeId && assigneeId !== 'undefined' && assigneeId !== 'null' 
+        && mongoose.Types.ObjectId.isValid(assigneeId)) {
+      filter.assignees = assigneeId;
+    }
 
     const tasks = await KanbanTask
       .find(filter)
-      .populate('assignees', 'name email role'); // пароль и так не попадёт
-
+      .populate('assignees', 'name email role');
     res.json(tasks);
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -23,7 +27,11 @@ router.post('/', async (req, res) => {
     const payload = { ...req.body };
 
     if (Array.isArray(payload.assignees)) {
-      payload.assignees = [...new Set(payload.assignees.map(String))];
+      payload.assignees = payload.assignees.filter(
+        id => id && id !== 'undefined' && id !== 'null' && mongoose.Types.ObjectId.isValid(id)
+      );
+    } else {
+      payload.assignees = [];
     }
 
     const task = new KanbanTask(payload);
@@ -40,8 +48,12 @@ router.put('/:id', async (req, res) => {
   try {
     const payload = { ...req.body };
 
-    if (Array.isArray(payload.assignees)) {
-      payload.assignees = [...new Set(payload.assignees.map(String))];
+      if (Array.isArray(payload.assignees)) {
+      payload.assignees = payload.assignees.filter(
+        id => id && id !== 'undefined' && id !== 'null' && mongoose.Types.ObjectId.isValid(id)
+      );
+    } else {
+      payload.assignees = [];
     }
 
     const task = await KanbanTask.findByIdAndUpdate(

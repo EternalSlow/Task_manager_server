@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const Task = require('../models/Task');
 
-// GET все задачи
 router.get('/', async (req, res) => {
   try {
     const tasks = await Task.find();
@@ -12,7 +11,6 @@ router.get('/', async (req, res) => {
   }
 });
 
-// POST создать задачу
 router.post('/', async (req, res) => {
   const { title } = req.body;
   if (!title) return res.status(400).json({ message: 'Title is required' });
@@ -26,7 +24,6 @@ router.post('/', async (req, res) => {
   }
 });
 
-// PUT обновить задачу (заголовок или статус)
 router.put('/:id', async (req, res) => {
   const { title, completed } = req.body;
   try {
@@ -42,7 +39,6 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// DELETE удалить задачу
 router.delete('/:id', async (req, res) => {
   try {
     const task = await Task.findByIdAndDelete(req.params.id);

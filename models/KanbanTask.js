@@ -9,10 +9,8 @@ const kanbanTaskSchema = new mongoose.Schema({
   dueDate: { type: String, default: '' },
   status: { type: String, enum: ['not-started', 'in-progress', 'under-review', 'completed'], default: 'not-started' },
 
-  // ✅ Новое: реальные пользователи
   assignees: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User', default: [] }],
 
-  // (опционально оставить для обратной совместимости, но фронт лучше перевести на assignees)
   avatars: { type: [String], default: [] },
 
   comments: { type: Number, default: 0 },
